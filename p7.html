@@ -1,0 +1,252 @@
+```html
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>用藥提醒設定 (Reminder Settings)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+TC:wght@300;400;500;700&display=swap');
+        
+        body {
+            font-family: 'Inter', 'Noto Sans TC', sans-serif;
+            background-color: #0f172a;
+            color: #f8fafc;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .glass-card {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .switch-checkbox:checked + .switch-label {
+            background-color: #3b82f6;
+        }
+        .switch-checkbox:checked + .switch-label:after {
+            transform: translateX(1.5rem);
+        }
+
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #475569;
+            border-radius: 10px;
+        }
+
+        .active-ring {
+            box-shadow: 0 0 0 2px #3b82f6;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex justify-center items-start sm:py-8">
+
+    <!-- Mobile Container -->
+    <main id="p7" class="w-full max-w-md bg-slate-900 min-h-screen sm:min-h-[812px] sm:rounded-[3rem] shadow-2xl overflow-hidden flex flex-col relative border-slate-800 sm:border-8">
+        
+        <!-- Header -->
+        <header class="px-6 pt-12 pb-6 flex items-center justify-between sticky top-0 bg-slate-900/80 backdrop-blur-md z-10">
+            <button data-goto="p4" class="w-10 h-10 flex items-center justify-center rounded-full bg-slate-800 text-slate-300 hover:text-white transition-colors">
+                <i class="fa-solid fa-chevron-left text-lg"></i>
+            </button>
+            <h1 class="text-xl font-bold tracking-tight">提醒設定</h1>
+            <button class="w-10 h-10 flex items-center justify-center rounded-full bg-blue-600/20 text-blue-400">
+                <i class="fa-solid fa-bell"></i>
+            </button>
+        </header>
+
+        <!-- Scrollable Content -->
+        <div class="flex-1 overflow-y-auto px-6 pb-24 custom-scrollbar">
+            
+            <!-- Global Switch -->
+            <div class="glass-card rounded-3xl p-5 mb-6 flex items-center justify-between">
+                <div>
+                    <h3 class="font-semibold text-lg">啟用所有提醒</h3>
+                    <p class="text-slate-400 text-sm">暫停所有藥物通知</p>
+                </div>
+                <div class="relative inline-block w-12 h-6 align-middle select-none transition duration-200 ease-in">
+                    <input type="checkbox" name="toggle" id="global-toggle" class="switch-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 border-transparent appearance-none cursor-pointer outline-none transition-all duration-300" checked/>
+                    <label for="global-toggle" class="switch-label block overflow-hidden h-6 rounded-full bg-slate-700 cursor-pointer transition-colors duration-300"></label>
+                </div>
+            </div>
+
+            <!-- Sound & Vibration Section -->
+            <section class="mb-8">
+                <h2 class="text-slate-400 text-xs font-bold uppercase tracking-widest mb-4 ml-1">音效與體感</h2>
+                <div class="space-y-3">
+                    <!-- Sound Picker -->
+                    <div class="glass-card rounded-2xl p-4 flex items-center justify-between cursor-pointer hover:bg-slate-800 transition-all">
+                        <div class="flex items-center gap-4">
+                            <div class="w-10 h-10 rounded-xl bg-indigo-500/20 flex items-center justify-center text-indigo-400">
+                                <i class="fa-solid fa-music"></i>
+                            </div>
+                            <div>
+                                <p class="text-sm font-medium">提醒音效</p>
+                                <p class="text-xs text-slate-400">輕快和弦 (預設)</p>
+                            </div>
+                        </div>
+                        <i class="fa-solid fa-chevron-right text-slate-600 text-sm"></i>
+                    </div>
+
+                    <!-- Vibration Picker -->
+                    <div class="glass-card rounded-2xl p-4 flex items-center justify-between cursor-pointer hover:bg-slate-800 transition-all">
+                        <div class="flex items-center gap-4">
+                            <div class="w-10 h-10 rounded-xl bg-purple-500/20 flex items-center justify-center text-purple-400">
+                                <i class="fa-solid fa-vibration"></i>
+                            </div>
+                            <div>
+                                <p class="text-sm font-medium">震動模式</p>
+                                <p class="text-xs text-slate-400">連續短振</p>
+                            </div>
+                        </div>
+                        <i class="fa-solid fa-chevron-right text-slate-600 text-sm"></i>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Repeat Cycle Section -->
+            <section class="mb-8">
+                <h2 class="text-slate-400 text-xs font-bold uppercase tracking-widest mb-4 ml-1">週期預設</h2>
+                <div class="glass-card rounded-3xl p-5">
+                    <div class="flex items-center justify-between mb-4">
+                        <p class="font-medium">重複週期</p>
+                        <span class="text-blue-400 text-sm">自定義 <i class="fa-solid fa-edit ml-1"></i></span>
+                    </div>
+                    <div class="flex justify-between gap-2">
+                        <!-- Day Selectors -->
+                        <div class="w-9 h-9 flex items-center justify-center rounded-full bg-blue-600 text-white text-xs font-bold">日</div>
+                        <div class="w-9 h-9 flex items-center justify-center rounded-full bg-slate-800 text-slate-400 text-xs font-bold">一</div>
+                        <div class="w-9 h-9 flex items-center justify-center rounded-full bg-blue-600 text-white text-xs font-bold">二</div>
+                        <div class="w-9 h-9 flex items-center justify-center rounded-full bg-slate-800 text-slate-400 text-xs font-bold">三</div>
+                        <div class="w-9 h-9 flex items-center justify-center rounded-full bg-blue-600 text-white text-xs font-bold">四</div>
+                        <div class="w-9 h-9 flex items-center justify-center rounded-full bg-slate-800 text-slate-400 text-xs font-bold">五</div>
+                        <div class="w-9 h-9 flex items-center justify-center rounded-full bg-blue-600 text-white text-xs font-bold">六</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Intense Reminder Section (High Priority) -->
+            <section class="mb-8">
+                <div class="flex items-center gap-2 mb-4 ml-1">
+                    <h2 class="text-rose-400 text-xs font-bold uppercase tracking-widest">強效提醒</h2>
+                    <span class="bg-rose-500/20 text-rose-500 text-[10px] px-1.5 py-0.5 rounded border border-rose-500/30">推薦</span>
+                </div>
+                
+                <div class="glass-card border-rose-500/20 rounded-3xl p-5">
+                    <div class="flex items-start justify-between mb-6">
+                        <div class="pr-4">
+                            <h3 class="font-bold text-slate-100">強效提醒模式 (Intense)</h3>
+                            <p class="text-slate-400 text-sm mt-1 leading-relaxed">開啟後，系統將每隔 5 分鐘發送一次推播，直到您點擊「確認服用」為止。</p>
+                        </div>
+                        <div class="relative inline-block w-12 h-6 align-middle select-none transition duration-200 ease-in mt-1">
+                            <input type="checkbox" name="intense" id="intense-toggle" class="switch-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 border-transparent appearance-none cursor-pointer outline-none transition-all duration-300" checked/>
+                            <label for="intense-toggle" class="switch-label block overflow-hidden h-6 rounded-full bg-slate-700 cursor-pointer transition-colors duration-300"></label>
+                        </div>
+                    </div>
+
+                    <div class="space-y-4 pt-4 border-t border-slate-700/50">
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm text-slate-300">重試間隔</span>
+                            <div class="flex items-center gap-3">
+                                <button class="w-8 h-8 rounded-lg bg-slate-800 flex items-center justify-center text-slate-400"><i class="fa-solid fa-minus text-xs"></i></button>
+                                <span class="text-sm font-bold w-12 text-center">5 分</span>
+                                <button class="w-8 h-8 rounded-lg bg-slate-800 flex items-center justify-center text-slate-400"><i class="fa-solid fa-plus text-xs"></i></button>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm text-slate-300">最大重試次數</span>
+                            <div class="flex items-center gap-3">
+                                <button class="w-8 h-8 rounded-lg bg-slate-800 flex items-center justify-center text-slate-400"><i class="fa-solid fa-minus text-xs"></i></button>
+                                <span class="text-sm font-bold w-12 text-center">10 次</span>
+                                <button class="w-8 h-8 rounded-lg bg-slate-800 flex items-center justify-center text-slate-400"><i class="fa-solid fa-plus text-xs"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Pre-Notification -->
+            <div class="glass-card rounded-2xl p-4 flex items-center justify-between mb-8">
+                <div class="flex items-center gap-4">
+                    <div class="w-10 h-10 rounded-xl bg-orange-500/20 flex items-center justify-center text-orange-400">
+                        <i class="fa-solid fa-hourglass-start"></i>
+                    </div>
+                    <div>
+                        <p class="text-sm font-medium">提前提醒</p>
+                        <p class="text-xs text-slate-400">服藥前 10 分鐘</p>
+                    </div>
+                </div>
+                <div class="relative inline-block w-12 h-6 align-middle select-none transition duration-200 ease-in">
+                    <input type="checkbox" name="pre-remind" id="pre-remind" class="switch-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 border-transparent appearance-none cursor-pointer outline-none transition-all duration-300"/>
+                    <label for="pre-remind" class="switch-label block overflow-hidden h-6 rounded-full bg-slate-700 cursor-pointer transition-colors duration-300"></label>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Action Footer -->
+        <footer class="p-6 absolute bottom-0 left-0 right-0 bg-gradient-to-t from-slate-900 via-slate-900 to-transparent">
+            <button data-goto="p4" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-4 rounded-2xl shadow-lg shadow-blue-900/40 transition-all active:scale-95">
+                儲存設定
+            </button>
+        </footer>
+
+        <!-- Navigation Bar (Mimic System) -->
+        <nav class="absolute bottom-0 w-full h-16 flex items-center justify-around px-4 border-t border-slate-800 bg-slate-900 hidden sm:flex sm:rounded-b-[2.5rem]">
+            <button data-goto="p4" class="p-2 text-slate-500 hover:text-blue-400 transition-colors"><i class="fa-solid fa-house-chimney text-lg"></i></button>
+            <button data-goto="p6" class="p-2 text-slate-500 hover:text-blue-400 transition-colors"><i class="fa-solid fa-pills text-lg"></i></button>
+            <div class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center -mt-8 shadow-lg shadow-blue-500/30 text-white">
+                <i class="fa-solid fa-plus text-xl"></i>
+            </div>
+            <button data-goto="p8" class="p-2 text-slate-500 hover:text-blue-400 transition-colors"><i class="fa-solid fa-calendar-check text-lg"></i></button>
+            <button data-goto="p9" class="p-2 text-blue-400"><i class="fa-solid fa-user text-lg"></i></button>
+        </nav>
+    </main>
+
+    <script>
+        // Simple Interaction logic for prototype
+        document.querySelectorAll('[data-goto]').forEach(button => {
+            button.addEventListener('click', () => {
+                const targetId = button.getAttribute('data-goto');
+                console.log(`Navigating to: ${targetId}`);
+                // In a real app, this would handle page transitions
+                // For this single-file prototype, we just log it or handle visibility
+            });
+        });
+
+        // Toggle Switch Effect (Visual only)
+        const switches = document.querySelectorAll('.switch-checkbox');
+        switches.forEach(sw => {
+            sw.addEventListener('change', function() {
+                const parent = this.closest('.glass-card');
+                if (this.checked) {
+                    parent.style.borderColor = 'rgba(59, 130, 246, 0.4)';
+                } else {
+                    parent.style.borderColor = 'rgba(255, 255, 255, 0.1)';
+                }
+            });
+        });
+    </script>
+
+<script>
+  // Pro Prototype - Static Navigation Shim
+  document.addEventListener('DOMContentLoaded', () => {
+    document.body.addEventListener('click', (e) => {
+      const target = e.target.closest('[data-goto]');
+      if (target) {
+        e.preventDefault();
+        const pageId = target.getAttribute('data-goto');
+        // Navigate to the corresponding HTML file
+        window.location.href = pageId + '.html';
+      }
+    });
+  });
+</script>
+</body>
+</html>
+
+```
