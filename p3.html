@@ -1,0 +1,236 @@
+```html
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>新手引導 (Onboarding) - MediTrack</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+        .slide-in { animation: slideIn 0.4s ease-out forwards; }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        .step-dot.active { @apply bg-indigo-600 w-8; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 min-h-screen flex flex-col items-center justify-center">
+
+    <!-- Onboarding Container -->
+    <div class="max-w-md w-full h-[90vh] bg-white shadow-2xl rounded-3xl overflow-hidden relative flex flex-col">
+        
+        <!-- Skip Button -->
+        <button data-goto="p4" class="absolute top-6 right-6 text-slate-400 font-medium hover:text-indigo-600 transition-colors z-20">
+            跳過
+        </button>
+
+        <!-- Slides Wrapper -->
+        <div id="slides-container" class="flex-grow flex flex-col">
+            
+            <!-- Slide 1: Scan Medication -->
+            <div id="slide-1" class="onboarding-slide h-full flex flex-col p-8 slide-in">
+                <div class="flex-grow flex flex-col items-center justify-center text-center space-y-6">
+                    <div class="w-64 h-64 bg-indigo-50 rounded-full flex items-center justify-center relative overflow-hidden">
+                        <img src="https://picsum.photos/seed/p3-scan/400/400" alt="Scan" class="w-full h-full object-cover opacity-80">
+                        <div class="absolute inset-0 border-4 border-indigo-500 rounded-full animate-pulse opacity-30"></div>
+                        <i class="fa-solid fa-qrcode text-6xl text-indigo-600 absolute"></i>
+                    </div>
+                    <div class="space-y-3">
+                        <h2 class="text-2xl font-bold text-slate-800">智能掃描藥袋</h2>
+                        <p class="text-slate-500 leading-relaxed">
+                            只需拍攝藥袋或藥瓶標籤，系統將自動辨識藥名、劑量與服用頻率，告別手動輸入的麻煩。
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 2: Reminder Settings -->
+            <div id="slide-2" class="onboarding-slide h-full flex flex-col p-8 slide-in hidden">
+                <div class="flex-grow flex flex-col items-center justify-center text-center space-y-6">
+                    <div class="w-64 h-64 bg-emerald-50 rounded-full flex items-center justify-center relative">
+                        <img src="https://picsum.photos/seed/p3-timer/400/400" alt="Reminder" class="w-full h-full object-cover opacity-80 rounded-full">
+                        <i class="fa-solid fa-bell text-6xl text-emerald-600 absolute drop-shadow-lg"></i>
+                    </div>
+                    <div class="space-y-3">
+                        <h2 class="text-2xl font-bold text-slate-800">精準用藥提醒</h2>
+                        <p class="text-slate-500 leading-relaxed">
+                            根據醫囑設定多樣化的提醒鬧鐘。無論是餐前餐後，MediTrack 都會準時守護您的用藥時間。
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 3: Family Monitoring -->
+            <div id="slide-3" class="onboarding-slide h-full flex flex-col p-8 slide-in hidden">
+                <div class="flex-grow flex flex-col items-center justify-center text-center space-y-6">
+                    <div class="w-64 h-64 bg-amber-50 rounded-full flex items-center justify-center relative">
+                        <img src="https://picsum.photos/seed/p3-family/400/400" alt="Family" class="w-full h-full object-cover opacity-80 rounded-full">
+                        <i class="fa-solid fa-users-viewfinder text-6xl text-amber-600 absolute drop-shadow-lg"></i>
+                    </div>
+                    <div class="space-y-3">
+                        <h2 class="text-2xl font-bold text-slate-800">家人健康共享</h2>
+                        <p class="text-slate-500 leading-relaxed">
+                            即時掌握父母或子女的服藥狀況。當家人忘記吃藥時，系統將主動通知您，健康守護不間斷。
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 4: Basic Profile Setup -->
+            <div id="slide-4" class="onboarding-slide h-full flex flex-col p-8 slide-in hidden">
+                <div class="flex-grow flex flex-col space-y-6">
+                    <div class="text-center">
+                        <h2 class="text-2xl font-bold text-slate-800">建立個人化檔案</h2>
+                        <p class="text-slate-500 text-sm mt-1">讓我們為您提供更精準的健康管理服務</p>
+                    </div>
+                    
+                    <div class="space-y-4 pt-4">
+                        <div class="space-y-1">
+                            <label class="text-sm font-semibold text-slate-600 ml-1">稱呼 (姓名)</label>
+                            <input type="text" placeholder="例如：王小明" class="w-full p-3 bg-slate-100 rounded-xl border-none focus:ring-2 focus:ring-indigo-500 transition-all outline-none">
+                        </div>
+                        
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="space-y-1">
+                                <label class="text-sm font-semibold text-slate-600 ml-1">性別</label>
+                                <select class="w-full p-3 bg-slate-100 rounded-xl border-none focus:ring-2 focus:ring-indigo-500 outline-none">
+                                    <option>男</option>
+                                    <option>女</option>
+                                    <option>其他</option>
+                                </select>
+                            </div>
+                            <div class="space-y-1">
+                                <label class="text-sm font-semibold text-slate-600 ml-1">出生年份</label>
+                                <input type="number" placeholder="1980" class="w-full p-3 bg-slate-100 rounded-xl border-none focus:ring-2 focus:ring-indigo-500 outline-none">
+                            </div>
+                        </div>
+
+                        <div class="space-y-1 pt-2">
+                            <label class="text-sm font-semibold text-slate-600 ml-1">主要管理需求 (可複選)</label>
+                            <div class="grid grid-cols-2 gap-2">
+                                <button class="p-2 text-xs font-medium border-2 border-slate-200 rounded-lg text-slate-500 hover:border-indigo-500 hover:text-indigo-600 transition-all">慢性病管理</button>
+                                <button class="p-2 text-xs font-medium border-2 border-slate-200 rounded-lg text-slate-500 hover:border-indigo-500 hover:text-indigo-600 transition-all">維他命補充</button>
+                                <button class="p-2 text-xs font-medium border-2 border-slate-200 rounded-lg text-slate-500 hover:border-indigo-500 hover:text-indigo-600 transition-all">家人照護</button>
+                                <button class="p-2 text-xs font-medium border-2 border-slate-200 rounded-lg text-slate-500 hover:border-indigo-500 hover:text-indigo-600 transition-all">短期藥程</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Footer: Controls -->
+        <div class="p-8 space-y-6">
+            <!-- Progress Dots -->
+            <div id="dots-container" class="flex justify-center space-x-2">
+                <div class="step-dot active h-2 w-2 rounded-full bg-indigo-600 transition-all duration-300"></div>
+                <div class="step-dot h-2 w-2 rounded-full bg-slate-200 transition-all duration-300"></div>
+                <div class="step-dot h-2 w-2 rounded-full bg-slate-200 transition-all duration-300"></div>
+                <div class="step-dot h-2 w-2 rounded-full bg-slate-200 transition-all duration-300"></div>
+            </div>
+
+            <!-- Action Button -->
+            <button id="next-btn" class="w-full bg-indigo-600 text-white py-4 rounded-2xl font-bold shadow-lg shadow-indigo-200 hover:bg-indigo-700 active:scale-[0.98] transition-all">
+                繼續
+            </button>
+            
+            <button id="start-btn" data-goto="p4" class="hidden w-full bg-slate-900 text-white py-4 rounded-2xl font-bold shadow-lg shadow-slate-200 hover:bg-black active:scale-[0.98] transition-all">
+                開始探索
+            </button>
+        </div>
+    </div>
+
+    <!-- Navigation Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const slides = document.querySelectorAll('.onboarding-slide');
+            const dots = document.querySelectorAll('.step-dot');
+            const nextBtn = document.getElementById('next-btn');
+            const startBtn = document.getElementById('start-btn');
+            let currentStep = 0;
+
+            const updateUI = () => {
+                slides.forEach((slide, index) => {
+                    slide.classList.toggle('hidden', index !== currentStep);
+                });
+
+                dots.forEach((dot, index) => {
+                    if (index === currentStep) {
+                        dot.classList.add('active', 'bg-indigo-600', 'w-8');
+                        dot.classList.remove('bg-slate-200', 'w-2');
+                    } else {
+                        dot.classList.remove('active', 'bg-indigo-600', 'w-8');
+                        dot.classList.add('bg-slate-200', 'w-2');
+                    }
+                });
+
+                if (currentStep === slides.length - 1) {
+                    nextBtn.classList.add('hidden');
+                    startBtn.classList.remove('hidden');
+                } else {
+                    nextBtn.classList.remove('hidden');
+                    startBtn.classList.add('hidden');
+                }
+            };
+
+            nextBtn.addEventListener('click', () => {
+                if (currentStep < slides.length - 1) {
+                    currentStep++;
+                    updateUI();
+                }
+            });
+
+            // Handle Page Transitions
+            document.addEventListener('click', (e) => {
+                const target = e.target.closest('[data-goto]');
+                if (target) {
+                    const pageId = target.getAttribute('data-goto');
+                    // In a real environment, this would navigate to the actual page.
+                    // For this prototype, we'll log it or simulate a reload.
+                    console.log(`Navigating to: ${pageId}`);
+                    // Trigger a simple animation before "navigating"
+                    document.body.style.opacity = '0';
+                    document.body.style.transition = 'opacity 0.3s ease';
+                    setTimeout(() => {
+                        alert(`原型跳轉：前往頁面 ${pageId}`);
+                        document.body.style.opacity = '1';
+                    }, 300);
+                }
+            });
+
+            // Interest Toggle Logic
+            const interestBtns = document.querySelectorAll('.onboarding-slide button[class*="border-2"]');
+            interestBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    btn.classList.toggle('border-indigo-500');
+                    btn.classList.toggle('text-indigo-600');
+                    btn.classList.toggle('bg-indigo-50');
+                });
+            });
+        });
+    </script>
+
+
+<script>
+  // Pro Prototype - Static Navigation Shim
+  document.addEventListener('DOMContentLoaded', () => {
+    document.body.addEventListener('click', (e) => {
+      const target = e.target.closest('[data-goto]');
+      if (target) {
+        e.preventDefault();
+        const pageId = target.getAttribute('data-goto');
+        // Navigate to the corresponding HTML file
+        window.location.href = pageId + '.html';
+      }
+    });
+  });
+</script>
+</body>
+</html>
+
+```
