@@ -1,0 +1,228 @@
+```html
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>個人檔案與家人共享 - Profile & Family</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap');
+        body { font-family: 'Noto Sans TC', sans-serif; }
+        .glass-card { background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(10px); }
+        .tab-active { color: #4F46E5; border-bottom: 2px solid #4F46E5; }
+        .status-dot { width: 8px; height: 8px; border-radius: 50%; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 min-h-screen pb-24">
+
+    <!-- Top Navigation -->
+    <header class="sticky top-0 z-30 bg-white/80 backdrop-blur-md border-b border-slate-200 px-6 py-4 flex items-center justify-between">
+        <h1 class="text-xl font-bold text-slate-800">個人與家人</h1>
+        <button data-goto="p4" class="w-10 h-10 flex items-center justify-center rounded-full bg-slate-100 text-slate-600 hover:bg-slate-200 transition-colors">
+            <i class="fa-solid fa-house"></i>
+        </button>
+    </header>
+
+    <main class="max-w-md mx-auto px-6 py-6 space-y-8">
+        
+        <!-- Profile Header Section -->
+        <section class="flex flex-col items-center text-center">
+            <div class="relative">
+                <img src="https://picsum.photos/seed/p9user/150/150" alt="Avatar" class="w-24 h-24 rounded-full border-4 border-white shadow-lg object-cover">
+                <button class="absolute bottom-0 right-0 bg-indigo-600 text-white w-8 h-8 rounded-full border-2 border-white flex items-center justify-center text-xs">
+                    <i class="fa-solid fa-camera"></i>
+                </button>
+            </div>
+            <h2 class="mt-4 text-2xl font-bold text-slate-800">王小明</h2>
+            <p class="text-slate-500 text-sm">ming.wang@example.com</p>
+            <button class="mt-4 px-6 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-sm font-medium rounded-full transition-all">
+                編輯個人資料
+            </button>
+        </section>
+
+        <!-- Family Sharing Section -->
+        <section class="space-y-4">
+            <div class="flex items-center justify-between">
+                <h3 class="text-lg font-bold text-slate-800 flex items-center gap-2">
+                    <i class="fa-solid fa-users text-indigo-500"></i>
+                    家人健康共享
+                </h3>
+                <button class="text-sm font-medium text-indigo-600 bg-indigo-50 px-3 py-1 rounded-md hover:bg-indigo-100 transition-colors">
+                    <i class="fa-solid fa-plus mr-1"></i> 邀請
+                </button>
+            </div>
+
+            <!-- Family List -->
+            <div class="space-y-3">
+                <!-- Family Member 1 -->
+                <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-shadow group cursor-pointer">
+                    <div class="flex items-center gap-4">
+                        <img src="https://picsum.photos/seed/grandpa/100/100" class="w-12 h-12 rounded-xl object-cover" alt="Grandpa">
+                        <div class="flex-1">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <h4 class="font-bold text-slate-800">爺爺 (王大發)</h4>
+                                    <p class="text-xs text-slate-500">今日用藥進度: 3/4</p>
+                                </div>
+                                <span class="text-xs px-2 py-1 bg-amber-50 text-amber-600 rounded-md font-medium">1 劑待服</span>
+                            </div>
+                            <div class="mt-2 w-full bg-slate-100 h-1.5 rounded-full overflow-hidden">
+                                <div class="bg-amber-400 h-full w-[75%] rounded-full"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Family Member 2 -->
+                <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-shadow group cursor-pointer">
+                    <div class="flex items-center gap-4">
+                        <img src="https://picsum.photos/seed/son/100/100" class="w-12 h-12 rounded-xl object-cover" alt="Son">
+                        <div class="flex-1">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <h4 class="font-bold text-slate-800">小寶 (王小強)</h4>
+                                    <p class="text-xs text-slate-500">今日用藥進度: 2/2</p>
+                                </div>
+                                <span class="text-xs px-2 py-1 bg-emerald-50 text-emerald-600 rounded-md font-medium">已完成</span>
+                            </div>
+                            <div class="mt-2 w-full bg-slate-100 h-1.5 rounded-full overflow-hidden">
+                                <div class="bg-emerald-500 h-full w-full rounded-full"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Family Member 3 (Pending Invitation) -->
+                <div class="bg-slate-50 p-4 rounded-2xl border border-dashed border-slate-300 flex items-center justify-between">
+                    <div class="flex items-center gap-4 opacity-60">
+                        <div class="w-12 h-12 rounded-xl bg-slate-200 flex items-center justify-center">
+                            <i class="fa-solid fa-user-clock text-slate-400"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-slate-600 italic">等待接受邀請...</h4>
+                            <p class="text-xs text-slate-400">老婆 (林曉梅)</p>
+                        </div>
+                    </div>
+                    <button class="text-xs text-slate-400 underline">取消</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quick Settings & Account -->
+        <section class="space-y-4">
+            <h3 class="text-lg font-bold text-slate-800 flex items-center gap-2 px-1">
+                <i class="fa-solid fa-gear text-slate-400"></i>
+                帳號設定
+            </h3>
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-100 divide-y divide-slate-50">
+                <!-- Item 1 -->
+                <div class="p-4 flex items-center justify-between hover:bg-slate-50 cursor-pointer rounded-t-2xl transition-colors">
+                    <div class="flex items-center gap-3">
+                        <div class="w-8 h-8 bg-blue-50 text-blue-600 rounded-lg flex items-center justify-center">
+                            <i class="fa-solid fa-bell"></i>
+                        </div>
+                        <span class="font-medium text-slate-700">通知與警報</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-right text-slate-300 text-sm"></i>
+                </div>
+                <!-- Item 2 -->
+                <div class="p-4 flex items-center justify-between hover:bg-slate-50 cursor-pointer transition-colors">
+                    <div class="flex items-center gap-3">
+                        <div class="w-8 h-8 bg-purple-50 text-purple-600 rounded-lg flex items-center justify-center">
+                            <i class="fa-solid fa-shield-halved"></i>
+                        </div>
+                        <span class="font-medium text-slate-700">隱私與共享權限</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-right text-slate-300 text-sm"></i>
+                </div>
+                <!-- Item 3 -->
+                <div class="p-4 flex items-center justify-between hover:bg-slate-50 cursor-pointer transition-colors" data-goto="p10">
+                    <div class="flex items-center gap-3">
+                        <div class="w-8 h-8 bg-teal-50 text-teal-600 rounded-lg flex items-center justify-center">
+                            <i class="fa-solid fa-hospital"></i>
+                        </div>
+                        <span class="font-medium text-slate-700">我的醫療院所</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-right text-slate-300 text-sm"></i>
+                </div>
+                <!-- Logout -->
+                <div class="p-4 flex items-center justify-between hover:bg-red-50 cursor-pointer rounded-b-2xl transition-colors group" data-goto="p2">
+                    <div class="flex items-center gap-3 text-red-500">
+                        <div class="w-8 h-8 bg-red-50 group-hover:bg-red-100 rounded-lg flex items-center justify-center">
+                            <i class="fa-solid fa-right-from-bracket"></i>
+                        </div>
+                        <span class="font-medium">登出帳號</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Version Info -->
+        <div class="text-center pb-8">
+            <p class="text-xs text-slate-400">SmartPill v2.4.0 (Build 20231011)</p>
+        </div>
+
+    </main>
+
+    <!-- Bottom Navigation Bar -->
+    <nav class="fixed bottom-0 left-0 right-0 bg-white border-t border-slate-200 px-6 py-3 flex justify-between items-center z-50">
+        <button data-goto="p4" class="flex flex-col items-center gap-1 text-slate-400 hover:text-indigo-600 transition-colors">
+            <i class="fa-solid fa-house text-xl"></i>
+            <span class="text-[10px] font-medium">首頁</span>
+        </button>
+        <button data-goto="p6" class="flex flex-col items-center gap-1 text-slate-400 hover:text-indigo-600 transition-colors">
+            <i class="fa-solid fa-pills text-xl"></i>
+            <span class="text-[10px] font-medium">藥物庫存</span>
+        </button>
+        <button data-goto="p5" class="relative -top-6 bg-indigo-600 w-14 h-14 rounded-full shadow-lg shadow-indigo-200 flex items-center justify-center text-white transition-transform active:scale-90">
+            <i class="fa-solid fa-plus text-2xl"></i>
+        </button>
+        <button data-goto="p8" class="flex flex-col items-center gap-1 text-slate-400 hover:text-indigo-600 transition-colors">
+            <i class="fa-solid fa-calendar-check text-xl"></i>
+            <span class="text-[10px] font-medium">服用記錄</span>
+        </button>
+        <button data-goto="p9" class="flex flex-col items-center gap-1 text-indigo-600">
+            <i class="fa-solid fa-user text-xl"></i>
+            <span class="text-[10px] font-medium">個人共享</span>
+        </button>
+    </nav>
+
+    <script>
+        // Prototype navigation handler
+        document.addEventListener('DOMContentLoaded', () => {
+            const clickableElements = document.querySelectorAll('[data-goto]');
+            clickableElements.forEach(elem => {
+                elem.addEventListener('click', () => {
+                    const targetId = elem.getAttribute('data-goto');
+                    console.log(`Navigating to: ${targetId}`);
+                    // In a real scenario, this would trigger the router
+                    // For this prototype, we'll just log it or simulate a flash
+                    document.body.style.opacity = '0.5';
+                    setTimeout(() => {
+                        document.body.style.opacity = '1';
+                    }, 150);
+                });
+            });
+        });
+    </script>
+
+<script>
+  // Pro Prototype - Static Navigation Shim
+  document.addEventListener('DOMContentLoaded', () => {
+    document.body.addEventListener('click', (e) => {
+      const target = e.target.closest('[data-goto]');
+      if (target) {
+        e.preventDefault();
+        const pageId = target.getAttribute('data-goto');
+        // Navigate to the corresponding HTML file
+        window.location.href = pageId + '.html';
+      }
+    });
+  });
+</script>
+</body>
+</html>
+```
