@@ -1,0 +1,287 @@
+```html
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>醫療院所與藥局資訊 - Medical Info</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Inter', 'PingFang TC', 'Microsoft JhengHei', sans-serif; }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .tab-active { border-bottom: 3px solid #3b82f6; color: #3b82f6; }
+    </style>
+</head>
+<body class="bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 min-h-screen pb-24">
+
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 px-4 py-4">
+        <div class="flex items-center justify-between max-w-lg mx-auto">
+            <button data-goto="p4" class="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full transition-colors">
+                <i class="fa-solid fa-chevron-left text-lg"></i>
+            </button>
+            <h1 class="text-xl font-bold">醫療與藥局資訊</h1>
+            <button class="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full transition-colors">
+                <i class="fa-solid fa-magnifying-glass text-lg text-slate-500"></i>
+            </button>
+        </div>
+    </header>
+
+    <main class="max-w-lg mx-auto px-4 mt-6">
+        
+        <!-- Tab Navigation -->
+        <div class="flex border-b border-slate-200 dark:border-slate-800 mb-6">
+            <button id="tab-clinics" class="flex-1 py-3 text-center font-semibold tab-active transition-all">
+                常用診所 / 醫師
+            </button>
+            <button id="tab-pharmacies" class="flex-1 py-3 text-center font-semibold text-slate-500 dark:text-slate-400 hover:text-slate-700 transition-all">
+                附近合作藥局
+            </button>
+        </div>
+
+        <!-- Section: My Clinics -->
+        <section id="section-clinics" class="space-y-4">
+            <div class="flex justify-between items-center mb-2">
+                <h2 class="text-sm font-semibold uppercase tracking-wider text-slate-500">我的主治醫療團</h2>
+                <button class="text-blue-500 text-sm font-medium flex items-center gap-1">
+                    <i class="fa-solid fa-plus"></i> 新增診所
+                </button>
+            </div>
+
+            <!-- Clinic Card 1 -->
+            <div class="bg-white dark:bg-slate-900 rounded-2xl p-4 shadow-sm border border-slate-100 dark:border-slate-800">
+                <div class="flex gap-4">
+                    <img src="https://picsum.photos/seed/doc1/100/100" class="w-16 h-16 rounded-xl object-cover" alt="Doctor">
+                    <div class="flex-1">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h3 class="font-bold text-lg">陳志明 醫師</h3>
+                                <p class="text-sm text-blue-500 font-medium">心臟內科</p>
+                            </div>
+                            <span class="bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 text-xs px-2 py-1 rounded-full font-bold">看診中</span>
+                        </div>
+                        <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">台北國泰綜合醫院</p>
+                    </div>
+                </div>
+                <div class="mt-4 flex gap-2">
+                    <button class="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg text-sm font-semibold transition-all">
+                        <i class="fa-solid fa-calendar-check mr-2"></i> 掛號預約
+                    </button>
+                    <button class="w-12 h-10 border border-slate-200 dark:border-slate-700 rounded-lg flex items-center justify-center text-slate-600 dark:text-slate-300">
+                        <i class="fa-solid fa-phone"></i>
+                    </button>
+                    <button class="w-12 h-10 border border-slate-200 dark:border-slate-700 rounded-lg flex items-center justify-center text-slate-600 dark:text-slate-300">
+                        <i class="fa-solid fa-location-dot"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Clinic Card 2 -->
+            <div class="bg-white dark:bg-slate-900 rounded-2xl p-4 shadow-sm border border-slate-100 dark:border-slate-800">
+                <div class="flex gap-4">
+                    <img src="https://picsum.photos/seed/doc2/100/100" class="w-16 h-16 rounded-xl object-cover" alt="Doctor">
+                    <div class="flex-1">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h3 class="font-bold text-lg">王曉華 醫師</h3>
+                                <p class="text-sm text-pink-500 font-medium">家醫科</p>
+                            </div>
+                            <span class="bg-slate-100 dark:bg-slate-800 text-slate-500 text-xs px-2 py-1 rounded-full font-bold">休診</span>
+                        </div>
+                        <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">健仁基層診所</p>
+                    </div>
+                </div>
+                <div class="mt-4 flex gap-2 opacity-70">
+                    <button class="flex-1 bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400 py-2 rounded-lg text-sm font-semibold cursor-not-allowed">
+                        預約未開放
+                    </button>
+                    <button class="w-12 h-10 border border-slate-200 dark:border-slate-700 rounded-lg flex items-center justify-center text-slate-600 dark:text-slate-300">
+                        <i class="fa-solid fa-phone"></i>
+                    </button>
+                    <button class="w-12 h-10 border border-slate-200 dark:border-slate-700 rounded-lg flex items-center justify-center text-slate-600 dark:text-slate-300">
+                        <i class="fa-solid fa-location-dot"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section: Nearby Pharmacies (Initially Hidden) -->
+        <section id="section-pharmacies" class="hidden space-y-4">
+            <!-- Map Placeholder -->
+            <div class="relative w-full h-56 bg-slate-200 dark:bg-slate-800 rounded-2xl overflow-hidden mb-6 group">
+                <img src="https://picsum.photos/seed/map/800/400" alt="Map View" class="w-full h-full object-cover">
+                <div class="absolute inset-0 flex items-center justify-center">
+                    <div class="bg-white dark:bg-slate-900 px-4 py-2 rounded-full shadow-lg flex items-center gap-2 border-2 border-blue-500">
+                        <i class="fa-solid fa-location-crosshairs text-blue-500"></i>
+                        <span class="text-sm font-bold">顯示附近 5 間藥局</span>
+                    </div>
+                </div>
+                <!-- Custom Pins (Visual Decorations) -->
+                <div class="absolute top-1/4 left-1/3 text-blue-600"><i class="fa-solid fa-location-dot text-2xl drop-shadow"></i></div>
+                <div class="absolute bottom-1/3 right-1/4 text-red-500"><i class="fa-solid fa-location-dot text-2xl drop-shadow"></i></div>
+            </div>
+
+            <!-- Pharmacy List -->
+            <div class="space-y-4">
+                <!-- Pharmacy Card 1 -->
+                <div class="bg-white dark:bg-slate-900 p-4 rounded-2xl border-l-4 border-l-blue-500 shadow-sm border border-slate-100 dark:border-slate-800 flex justify-between items-center">
+                    <div class="flex-1">
+                        <div class="flex items-center gap-2 mb-1">
+                            <h3 class="font-bold">大樹連鎖藥局 - 信義店</h3>
+                            <span class="text-[10px] bg-blue-100 text-blue-600 px-1.5 py-0.5 rounded font-bold">合作單位</span>
+                        </div>
+                        <p class="text-xs text-slate-500 mb-2"><i class="fa-solid fa-map-pin mr-1"></i> 距離 250m • 步行 3 分鐘</p>
+                        <div class="flex gap-2">
+                            <span class="text-xs bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded text-slate-600 dark:text-slate-300">慢性處方箋</span>
+                            <span class="text-xs bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded text-slate-600 dark:text-slate-300">送藥到府</span>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-xs font-bold text-green-500 mb-2">營業中</p>
+                        <button class="bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 p-2 rounded-lg">
+                            <i class="fa-solid fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Pharmacy Card 2 -->
+                <div class="bg-white dark:bg-slate-900 p-4 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800 flex justify-between items-center">
+                    <div class="flex-1">
+                        <div class="flex items-center gap-2 mb-1">
+                            <h3 class="font-bold">丁丁藥局 - 永和分店</h3>
+                        </div>
+                        <p class="text-xs text-slate-500 mb-2"><i class="fa-solid fa-map-pin mr-1"></i> 距離 850m • 步行 12 分鐘</p>
+                        <div class="flex gap-2">
+                            <span class="text-xs bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded text-slate-600 dark:text-slate-300">成人/幼兒口罩</span>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-xs font-bold text-green-500 mb-2">營業中</p>
+                        <button class="bg-slate-50 dark:bg-slate-800 text-slate-400 p-2 rounded-lg">
+                            <i class="fa-solid fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Pharmacy Card 3 (Wait List) -->
+                <div class="bg-white dark:bg-slate-900 p-4 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800 flex justify-between items-center">
+                    <div class="flex-1">
+                        <div class="flex items-center gap-2 mb-1">
+                            <h3 class="font-bold">健康人生藥局</h3>
+                        </div>
+                        <p class="text-xs text-slate-500 mb-2"><i class="fa-solid fa-map-pin mr-1"></i> 距離 1.2km</p>
+                        <p class="text-xs text-orange-500 font-medium">備註：降血壓藥物領取中，預計 14:00 後補齊</p>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-xs font-bold text-slate-400 mb-2">休息中</p>
+                        <button class="bg-slate-50 dark:bg-slate-800 text-slate-400 p-2 rounded-lg">
+                            <i class="fa-solid fa-phone"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Additional Actions -->
+        <div class="mt-8 mb-4">
+            <h2 class="text-sm font-semibold uppercase tracking-wider text-slate-500 mb-3">快捷功能</h2>
+            <div class="grid grid-cols-2 gap-3">
+                <button class="flex items-center gap-3 p-4 bg-white dark:bg-slate-900 rounded-xl border border-slate-100 dark:border-slate-800 shadow-sm">
+                    <div class="w-10 h-10 rounded-full bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center text-orange-600">
+                        <i class="fa-solid fa-notes-medical"></i>
+                    </div>
+                    <span class="text-sm font-bold">處方箋預約</span>
+                </button>
+                <button class="flex items-center gap-3 p-4 bg-white dark:bg-slate-900 rounded-xl border border-slate-100 dark:border-slate-800 shadow-sm">
+                    <div class="w-10 h-10 rounded-full bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center text-purple-600">
+                        <i class="fa-solid fa-truck-fast"></i>
+                    </div>
+                    <span class="text-sm font-bold">送藥到府</span>
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Navigation Footer -->
+    <nav class="fixed bottom-0 left-0 right-0 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 px-6 py-3 pb-6">
+        <div class="max-w-lg mx-auto flex justify-between items-center">
+            <button data-goto="p4" class="flex flex-col items-center gap-1 text-slate-400 hover:text-blue-500 transition-colors">
+                <i class="fa-solid fa-house text-xl"></i>
+                <span class="text-[10px] font-medium">首頁</span>
+            </button>
+            <button data-goto="p6" class="flex flex-col items-center gap-1 text-slate-400 hover:text-blue-500 transition-colors">
+                <i class="fa-solid fa-pills text-xl"></i>
+                <span class="text-[10px] font-medium">藥物</span>
+            </button>
+            <button data-goto="p8" class="flex flex-col items-center gap-1 text-slate-400 hover:text-blue-500 transition-colors">
+                <i class="fa-solid fa-clock-rotate-left text-xl"></i>
+                <span class="text-[10px] font-medium">歷史</span>
+            </button>
+            <button data-goto="p10" class="flex flex-col items-center gap-1 text-blue-600">
+                <i class="fa-solid fa-hospital text-xl"></i>
+                <span class="text-[10px] font-medium">醫療</span>
+            </button>
+            <button data-goto="p9" class="flex flex-col items-center gap-1 text-slate-400 hover:text-blue-500 transition-colors">
+                <i class="fa-solid fa-user text-xl"></i>
+                <span class="text-[10px] font-medium">設定</span>
+            </button>
+        </div>
+    </nav>
+
+    <script>
+        // Simple Tab Switching Logic
+        const tabClinics = document.getElementById('tab-clinics');
+        const tabPharmacies = document.getElementById('tab-pharmacies');
+        const sectionClinics = document.getElementById('section-clinics');
+        const sectionPharmacies = document.getElementById('section-pharmacies');
+
+        tabClinics.addEventListener('click', () => {
+            tabClinics.classList.add('tab-active');
+            tabClinics.classList.remove('text-slate-500');
+            tabPharmacies.classList.remove('tab-active');
+            tabPharmacies.classList.add('text-slate-500');
+            sectionClinics.classList.remove('hidden');
+            sectionPharmacies.classList.add('hidden');
+        });
+
+        tabPharmacies.addEventListener('click', () => {
+            tabPharmacies.classList.add('tab-active');
+            tabPharmacies.classList.remove('text-slate-500');
+            tabClinics.classList.remove('tab-active');
+            tabClinics.classList.add('text-slate-500');
+            sectionPharmacies.classList.remove('hidden');
+            sectionClinics.classList.add('hidden');
+        });
+
+        // Handle navigation clicks
+        document.querySelectorAll('[data-goto]').forEach(element => {
+            element.addEventListener('click', () => {
+                const targetId = element.getAttribute('data-goto');
+                console.log(`Navigating to page: ${targetId}`);
+                // In a real app, this would handle routing. For this prototype, we'll just log.
+                // Assuming this file is part of a multi-page setup where other IDs exist.
+            });
+        });
+    </script>
+
+<script>
+  // Pro Prototype - Static Navigation Shim
+  document.addEventListener('DOMContentLoaded', () => {
+    document.body.addEventListener('click', (e) => {
+      const target = e.target.closest('[data-goto]');
+      if (target) {
+        e.preventDefault();
+        const pageId = target.getAttribute('data-goto');
+        // Navigate to the corresponding HTML file
+        window.location.href = pageId + '.html';
+      }
+    });
+  });
+</script>
+</body>
+</html>
+
+```
