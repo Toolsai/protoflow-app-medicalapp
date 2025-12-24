@@ -1,7 +1,7 @@
-```html
-<!DOCTYPE html>
-<html lang="zh-TW">
-<head>
+<html lang="zh-TW"><head></head><body class="bg-slate-50 text-slate-900 min-h-screen flex flex-col items-center justify-center p-4">```html
+
+
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>登入與註冊 - 智匯藥管家</title>
@@ -24,8 +24,8 @@
             display: none;
         }
     </style>
-</head>
-<body class="bg-slate-50 text-slate-900 min-h-screen flex flex-col items-center justify-center p-4">
+
+
 
     <!-- Container -->
     <div class="w-full max-w-md bg-white rounded-3xl shadow-xl overflow-hidden relative border border-slate-100">
@@ -50,7 +50,7 @@
                 <button onclick="switchTab('login')" id="tab-login" class="flex-1 py-2 text-sm font-medium rounded-lg bg-white shadow-sm text-blue-600 transition-all">
                     登入
                 </button>
-                <button onclick="switchTab('register')" id="tab-register" class="flex-1 py-2 text-sm font-medium rounded-lg text-slate-500 hover:text-slate-700 transition-all">
+                <button onclick="switchTab('register')" id="tab-register" class="flex-1 py-2 text-sm font-medium rounded-lg text-slate-500 hover:text-slate-700 transition-all ring-2 ring-blue-500 ring-offset-2" data-goto="p4">
                     註冊
                 </button>
             </div>
@@ -251,6 +251,9 @@
         });
     </script>
 
+
+
+```
 <script>
   // Pro Prototype - Static Navigation Shim
   document.addEventListener('DOMContentLoaded', () => {
@@ -265,7 +268,4 @@
     });
   });
 </script>
-</body>
-</html>
-
-```
+</body></html>
