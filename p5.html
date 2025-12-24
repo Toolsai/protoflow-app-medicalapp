@@ -1,0 +1,243 @@
+```html
+<!DOCTYPE html>
+<html lang="zh-TW" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>新增藥物 - 智慧藥盒</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap');
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background-color: #0f172a;
+            color: #f1f5f9;
+        }
+        .ios-blur {
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            background-color: rgba(30, 41, 59, 0.8);
+        }
+        .custom-shadow {
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center justify-start pb-24">
+
+    <!-- Header -->
+    <header class="w-full max-w-md sticky top-0 z-50 p-4 ios-blur border-b border-slate-700/50 flex items-center justify-between">
+        <button data-goto="p4" class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-slate-800 transition-colors">
+            <i class="fa-solid fa-chevron-left text-lg"></i>
+        </button>
+        <h1 class="text-xl font-bold tracking-wide">新增藥物</h1>
+        <div class="w-10"></div> <!-- Placeholder for symmetry -->
+    </header>
+
+    <main class="w-full max-w-md p-5 space-y-6">
+        
+        <!-- OCR / Scan Section -->
+        <section class="space-y-3">
+            <div class="flex items-center justify-between px-1">
+                <h2 class="text-sm font-medium text-slate-400 uppercase tracking-wider">快速掃描藥袋</h2>
+            </div>
+            <button class="w-full group relative overflow-hidden bg-gradient-to-br from-indigo-600 to-blue-500 rounded-2xl p-6 flex flex-col items-center justify-center text-center shadow-lg hover:opacity-90 transition-all active:scale-95">
+                <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-20"></div>
+                <div class="relative z-10">
+                    <div class="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-camera text-3xl"></i>
+                    </div>
+                    <span class="text-lg font-bold">掃描藥袋/條碼 (OCR)</span>
+                    <p class="text-sm text-indigo-100 mt-1">自動識別藥物名稱與用法</p>
+                </div>
+                <div class="absolute top-2 right-2 flex space-x-1">
+                    <div class="w-1 h-1 bg-white rounded-full"></div>
+                    <div class="w-1 h-1 bg-white rounded-full"></div>
+                </div>
+            </button>
+        </section>
+
+        <div class="flex items-center py-2">
+            <div class="flex-grow h-[1px] bg-slate-700"></div>
+            <span class="px-4 text-xs font-medium text-slate-500">或手動輸入詳細資訊</span>
+            <div class="flex-grow h-[1px] bg-slate-700"></div>
+        </div>
+
+        <!-- Manual Input Form -->
+        <div class="space-y-5">
+            <!-- Photo Upload -->
+            <div class="flex flex-col items-center space-y-2">
+                <div class="relative group">
+                    <div class="w-32 h-32 bg-slate-800 border-2 border-dashed border-slate-600 rounded-3xl flex flex-col items-center justify-center cursor-pointer overflow-hidden hover:border-blue-400 transition-colors">
+                        <img src="https://picsum.photos/seed/p5/200/200" alt="Med Preview" class="absolute inset-0 w-full h-full object-cover opacity-50">
+                        <div class="relative z-10 flex flex-col items-center text-slate-400">
+                            <i class="fa-solid fa-plus text-xl mb-1"></i>
+                            <span class="text-xs">上傳藥物照片</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Medication Name -->
+            <div class="space-y-1.5">
+                <label class="block text-sm font-medium text-slate-300 ml-1">藥物名稱</label>
+                <div class="relative">
+                    <input type="text" placeholder="例如：阿斯匹靈 (Aspirin)" 
+                        class="w-full bg-slate-800 border border-slate-700 rounded-xl py-3.5 px-4 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all placeholder:text-slate-500">
+                </div>
+            </div>
+
+            <!-- Dosage & Stock Grid -->
+            <div class="grid grid-cols-2 gap-4">
+                <div class="space-y-1.5">
+                    <label class="block text-sm font-medium text-slate-300 ml-1">單次劑量</label>
+                    <div class="flex space-x-2">
+                        <input type="number" placeholder="1" 
+                            class="w-full bg-slate-800 border border-slate-700 rounded-xl py-3.5 px-4 focus:ring-2 focus:ring-blue-500 outline-none">
+                        <select class="bg-slate-800 border border-slate-700 rounded-xl px-2 text-sm">
+                            <option>顆</option>
+                            <option>ml</option>
+                            <option>包</option>
+                            <option>滴</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="space-y-1.5">
+                    <label class="block text-sm font-medium text-slate-300 ml-1">現有庫存</label>
+                    <div class="flex space-x-2">
+                        <input type="number" placeholder="30" 
+                            class="w-full bg-slate-800 border border-slate-700 rounded-xl py-3.5 px-4 focus:ring-2 focus:ring-blue-500 outline-none">
+                        <div class="flex items-center text-slate-500 text-sm pr-2">單位</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Frequency Chips -->
+            <div class="space-y-2">
+                <label class="block text-sm font-medium text-slate-300 ml-1">服用頻率</label>
+                <div class="flex flex-wrap gap-2">
+                    <button class="px-4 py-2 bg-blue-600 text-white rounded-full text-sm font-medium shadow-sm transition-all">每天</button>
+                    <button class="px-4 py-2 bg-slate-800 text-slate-300 border border-slate-700 rounded-full text-sm font-medium hover:bg-slate-700 transition-all">間隔兩天</button>
+                    <button class="px-4 py-2 bg-slate-800 text-slate-300 border border-slate-700 rounded-full text-sm font-medium hover:bg-slate-700 transition-all">每週</button>
+                    <button class="px-4 py-2 bg-slate-800 text-slate-300 border border-slate-700 rounded-full text-sm font-medium hover:bg-slate-700 transition-all">需要時服用</button>
+                </div>
+            </div>
+
+            <!-- Time Slots -->
+            <div class="space-y-2">
+                <label class="block text-sm font-medium text-slate-300 ml-1">常用時段</label>
+                <div class="grid grid-cols-4 gap-2">
+                    <button class="flex flex-col items-center justify-center p-3 rounded-xl bg-slate-800 border-2 border-transparent hover:border-blue-500 active:bg-blue-900/20">
+                        <i class="fa-solid fa-sun text-yellow-500 mb-1"></i>
+                        <span class="text-[10px]">早餐後</span>
+                    </button>
+                    <button class="flex flex-col items-center justify-center p-3 rounded-xl bg-blue-500/10 border-2 border-blue-500">
+                        <i class="fa-solid fa-cloud-sun text-orange-400 mb-1"></i>
+                        <span class="text-[10px] font-bold">午餐後</span>
+                    </button>
+                    <button class="flex flex-col items-center justify-center p-3 rounded-xl bg-slate-800 border-2 border-transparent hover:border-blue-500">
+                        <i class="fa-solid fa-moon text-indigo-400 mb-1"></i>
+                        <span class="text-[10px]">晚餐後</span>
+                    </button>
+                    <button class="flex flex-col items-center justify-center p-3 rounded-xl bg-slate-800 border-2 border-transparent hover:border-blue-500">
+                        <i class="fa-solid fa-bed text-blue-300 mb-1"></i>
+                        <span class="text-[10px]">睡前</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Advanced Note -->
+            <div class="space-y-1.5">
+                <label class="block text-sm font-medium text-slate-300 ml-1">備註 (選填)</label>
+                <textarea rows="2" placeholder="例如：需飯後服用，不可配葡萄柚汁..." 
+                    class="w-full bg-slate-800 border border-slate-700 rounded-xl py-3 px-4 focus:ring-2 focus:ring-blue-500 outline-none transition-all placeholder:text-slate-500 resize-none"></textarea>
+            </div>
+        </div>
+    </main>
+
+    <!-- Bottom Actions -->
+    <footer class="fixed bottom-0 w-full max-w-md p-4 ios-blur border-t border-slate-700/50 flex space-x-3">
+        <button data-goto="p4" class="flex-1 py-4 px-6 bg-slate-800 text-slate-300 font-bold rounded-2xl hover:bg-slate-700 transition-all active:scale-95">
+            取消
+        </button>
+        <button data-goto="p7" class="flex-[2] py-4 px-6 bg-blue-600 text-white font-bold rounded-2xl custom-shadow hover:bg-blue-500 transition-all active:scale-95 flex items-center justify-center space-x-2">
+            <span>下一步：設定提醒</span>
+            <i class="fa-solid fa-arrow-right text-sm"></i>
+        </button>
+    </footer>
+
+    <!-- Simple Scan Modal Mockup (Hidden by default) -->
+    <div id="scanOverlay" class="fixed inset-0 bg-black z-[100] hidden flex-col items-center justify-center">
+        <div class="relative w-full h-full flex items-center justify-center">
+            <!-- Mock Camera Feed -->
+            <img src="https://picsum.photos/seed/scan/800/1200" class="absolute inset-0 w-full h-full object-cover opacity-60">
+            <!-- Scan Frame -->
+            <div class="relative w-72 h-72 border-2 border-blue-400 rounded-3xl overflow-hidden">
+                <div class="absolute top-0 w-full h-1 bg-blue-400 shadow-[0_0_15px_rgba(96,165,250,1)] animate-pulse" style="animation: scan 3s infinite linear;"></div>
+            </div>
+            <!-- Back Button -->
+            <button onclick="document.getElementById('scanOverlay').classList.add('hidden')" class="absolute top-8 left-4 w-12 h-12 bg-white/10 rounded-full flex items-center justify-center text-white backdrop-blur-md">
+                <i class="fa-solid fa-times"></i>
+            </button>
+            <!-- Label -->
+            <p class="absolute bottom-24 text-white text-lg font-medium px-6 py-2 bg-black/50 rounded-full backdrop-blur-md">
+                請對準藥袋條碼或名稱
+            </p>
+        </div>
+    </div>
+
+    <style>
+        @keyframes scan {
+            0% { top: 0; }
+            50% { top: 100%; }
+            100% { top: 0; }
+        }
+    </style>
+
+    <script>
+        // Mock Scan Interaction
+        document.querySelector('button.group.relative').addEventListener('click', () => {
+            document.getElementById('scanOverlay').classList.remove('hidden');
+            setTimeout(() => {
+                document.getElementById('scanOverlay').classList.add('hidden');
+                // Mock filling the data
+                document.querySelector('input[placeholder*="阿斯匹靈"]').value = "阿斯匹靈 Aspirin 100mg";
+            }, 3000);
+        });
+
+        // Navigation simulation
+        document.querySelectorAll('[data-goto]').forEach(el => {
+            el.addEventListener('click', () => {
+                const target = el.getAttribute('data-goto');
+                console.log(`Navigating to ${target}`);
+                // In a real prototype this would trigger page visibility changes
+                // For this standalone file, we just alert or visual feedback
+                if(target) {
+                   document.body.style.opacity = '0';
+                   setTimeout(() => {
+                        window.scrollTo(0,0);
+                        document.body.style.opacity = '1';
+                   }, 300);
+                }
+            });
+        });
+    </script>
+
+<script>
+  // Pro Prototype - Static Navigation Shim
+  document.addEventListener('DOMContentLoaded', () => {
+    document.body.addEventListener('click', (e) => {
+      const target = e.target.closest('[data-goto]');
+      if (target) {
+        e.preventDefault();
+        const pageId = target.getAttribute('data-goto');
+        // Navigate to the corresponding HTML file
+        window.location.href = pageId + '.html';
+      }
+    });
+  });
+</script>
+</body>
+</html>
+```
