@@ -1,0 +1,158 @@
+```html
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>啟動頁面 - MediCare</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+        .animate-float {
+            animation: float 3s ease-in-out infinite;
+        }
+        .progress-fill {
+            width: 0%;
+            animation: loading 2.5s ease-in-out forwards;
+        }
+        @keyframes loading {
+            0% { width: 0%; }
+            30% { width: 45%; }
+            70% { width: 85%; }
+            100% { width: 100%; }
+        }
+        .fade-in {
+            animation: fadeIn 1s ease-out forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-slate-950 text-white font-sans overflow-hidden">
+
+    <!-- Page Container (p1) -->
+    <div id="p1" class="relative min-h-screen flex flex-col items-center justify-between py-16 px-6 overflow-hidden">
+        
+        <!-- Background Decoration -->
+        <div class="absolute top-[-10%] left-[-10%] w-64 h-64 bg-emerald-500/20 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-[-5%] right-[-10%] w-80 h-80 bg-blue-600/20 rounded-full blur-3xl"></div>
+
+        <!-- Middle Content: Branding & Logo -->
+        <div class="flex-1 flex flex-col items-center justify-center z-10">
+            <!-- App Icon / Logo Container -->
+            <div data-goto="p2" class="cursor-pointer group relative">
+                <div class="absolute -inset-4 bg-gradient-to-tr from-emerald-400 to-blue-500 rounded-3xl blur opacity-30 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
+                <div class="relative w-32 h-32 bg-slate-900 rounded-3xl flex items-center justify-center border border-slate-800 shadow-2xl animate-float">
+                    <i class="fa-solid fa-house-medical text-5xl text-emerald-400"></i>
+                </div>
+            </div>
+
+            <!-- Brand Name & Slogan -->
+            <div class="mt-8 text-center fade-in">
+                <h1 class="text-4xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-emerald-400 to-blue-400">
+                    MediCare Plus
+                </h1>
+                <p class="mt-3 text-slate-400 text-lg tracking-wide font-light">
+                    您的智慧用藥管家
+                </p>
+                <p class="text-slate-500 text-sm mt-1">
+                    Smart Medication Tracker
+                </p>
+            </div>
+        </div>
+
+        <!-- Bottom Content: Initialization Status -->
+        <div class="w-full max-w-xs space-y-8 z-10">
+            <!-- Progress Bar -->
+            <div class="space-y-3">
+                <div class="flex justify-between text-xs text-slate-400 px-1">
+                    <span id="status-text">系統初始化中...</span>
+                    <span>98%</span>
+                </div>
+                <div class="h-1.5 w-full bg-slate-800 rounded-full overflow-hidden">
+                    <div class="progress-fill h-full bg-gradient-to-r from-emerald-400 to-blue-500 shadow-[0_0_8px_rgba(52,211,153,0.5)]"></div>
+                </div>
+            </div>
+
+            <!-- Click to enter (Manual override for prototype) -->
+            <div class="flex flex-col items-center space-y-4">
+                <button 
+                    data-goto="p2" 
+                    class="w-full py-4 bg-white/5 hover:bg-white/10 border border-slate-700 rounded-2xl transition-all duration-300 flex items-center justify-center space-x-2 group">
+                    <span class="text-slate-300 group-hover:text-white transition-colors">立即進入</span>
+                    <i class="fa-solid fa-arrow-right-long text-slate-500 group-hover:translate-x-1 transition-transform"></i>
+                </button>
+                
+                <div class="text-[10px] text-slate-600 uppercase tracking-widest text-center">
+                    Secure Encryption Enabled <i class="fa-solid fa-shield-halved ml-1"></i>
+                    <br>Version 2.4.0
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Script to simulate automated transition logic -->
+    <script>
+        // Prototype logic: Simulate a 3-second splash then show a hint or auto-navigate
+        // In this specific static HTML, we'll just update the status text.
+        const statusTexts = [
+            "檢查網路連接...",
+            "驗證登入狀態...",
+            "同步本地數據...",
+            "準備您的藥物日誌..."
+        ];
+        
+        let textIndex = 0;
+        const statusEl = document.getElementById('status-text');
+        
+        const textInterval = setInterval(() => {
+            if(textIndex < statusTexts.length) {
+                statusEl.innerText = statusTexts[textIndex];
+                textIndex++;
+            } else {
+                statusEl.innerText = "歡迎回來";
+                clearInterval(textInterval);
+                
+                // For a real prototype feeling, we could auto-navigate, 
+                // but the prompt specifies clicking elements for data-goto.
+                // We'll highlight the entry button.
+            }
+        }, 600);
+
+        // Standard interactive logic for proto-nav
+        document.querySelectorAll('[data-goto]').forEach(el => {
+            el.addEventListener('click', () => {
+                const target = el.getAttribute('data-goto');
+                console.log(`Navigating to ${target}`);
+                // In a multi-page file, you'd hide current and show target
+                // For this single-file requirement, we'll just alert or could be handled by a parent controller.
+                alert(`跳轉至頁面 ID: ${target}`);
+            });
+        });
+    </script>
+
+<script>
+  // Pro Prototype - Static Navigation Shim
+  document.addEventListener('DOMContentLoaded', () => {
+    document.body.addEventListener('click', (e) => {
+      const target = e.target.closest('[data-goto]');
+      if (target) {
+        e.preventDefault();
+        const pageId = target.getAttribute('data-goto');
+        // Navigate to the corresponding HTML file
+        window.location.href = pageId + '.html';
+      }
+    });
+  });
+</script>
+</body>
+</html>
+```
