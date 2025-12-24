@@ -1,0 +1,236 @@
+```html
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>首頁儀表板 - 藥管家</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .dark .glass-card {
+            background: rgba(30, 41, 59, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .progress-ring {
+            transition: stroke-dashoffset 0.35s;
+            transform: rotate(-90deg);
+            transform-origin: 50% 50%;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 min-h-screen pb-24">
+
+    <!-- Top Header -->
+    <header class="sticky top-0 z-30 px-6 py-4 flex justify-between items-center glass-card shadow-sm">
+        <div>
+            <p class="text-xs text-slate-500 dark:text-slate-400 font-medium">2023年10月24日，星期二</p>
+            <h1 class="text-2xl font-bold bg-gradient-to-r from-indigo-600 to-violet-500 bg-clip-text text-transparent">早安，曉明</h1>
+        </div>
+        <div data-goto="p9" class="w-10 h-10 rounded-full overflow-hidden border-2 border-indigo-500 cursor-pointer transition transform active:scale-95">
+            <img src="https://picsum.photos/seed/p4user/100/100" alt="Avatar">
+        </div>
+    </header>
+
+    <main class="px-6 py-6 space-y-8">
+
+        <!-- Daily Progress Section -->
+        <section class="bg-gradient-to-br from-indigo-600 to-violet-700 rounded-3xl p-6 text-white shadow-xl shadow-indigo-200 dark:shadow-none">
+            <div class="flex justify-between items-center">
+                <div class="space-y-1">
+                    <h3 class="text-lg font-semibold opacity-90">今日服藥進度</h3>
+                    <p class="text-3xl font-bold">3 / 4 <span class="text-sm font-normal opacity-75">組藥物</span></p>
+                    <p class="text-xs mt-2 bg-white/20 inline-block px-2 py-1 rounded-full">還有一組「睡前」藥物</p>
+                </div>
+                <!-- Progress Circle -->
+                <div class="relative w-20 h-20">
+                    <svg class="w-full h-full">
+                        <circle class="text-white/20" stroke-width="8" stroke="currentColor" fill="transparent" r="32" cx="40" cy="40"/>
+                        <circle class="text-white" stroke-width="8" stroke-dasharray="201" stroke-dashoffset="50" stroke-linecap="round" stroke="currentColor" fill="transparent" r="32" cx="40" cy="40" style="transform: rotate(-90deg); transform-origin: 50% 50%;"/>
+                    </svg>
+                    <div class="absolute inset-0 flex items-center justify-center font-bold text-sm">75%</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Upcoming Schedule -->
+        <section class="space-y-4">
+            <div class="flex justify-between items-end">
+                <h2 class="text-xl font-bold">即將服用</h2>
+                <button data-goto="p8" class="text-indigo-600 dark:text-indigo-400 text-sm font-medium">查看歷史 <i class="fa-solid fa-chevron-right text-[10px]"></i></button>
+            </div>
+
+            <!-- Med Card 1 (Completed) -->
+            <div class="flex gap-4 relative">
+                <div class="flex flex-col items-center">
+                    <div class="w-10 h-10 rounded-full bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center text-emerald-600">
+                        <i class="fa-solid fa-check"></i>
+                    </div>
+                    <div class="w-0.5 h-full bg-slate-200 dark:bg-slate-800 my-1"></div>
+                </div>
+                <div class="flex-1 pb-6">
+                    <div class="bg-white dark:bg-slate-900 p-4 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800 opacity-60">
+                        <div class="flex justify-between items-start mb-2">
+                            <span class="text-xs font-bold text-slate-400">08:00 AM</span>
+                            <span class="px-2 py-0.5 rounded bg-emerald-50 text-emerald-600 text-[10px] font-bold">已完成</span>
+                        </div>
+                        <h4 class="font-bold">阿斯匹靈 (Aspirin)</h4>
+                        <p class="text-sm text-slate-500 italic">1 錠，餐後服用</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Med Card 2 (Pending) -->
+            <div class="flex gap-4 relative">
+                <div class="flex flex-col items-center">
+                    <div class="w-10 h-10 rounded-full bg-indigo-100 dark:bg-indigo-900/30 flex items-center justify-center text-indigo-600">
+                        <i class="fa-solid fa-capsules"></i>
+                    </div>
+                    <div class="w-0.5 h-full bg-slate-200 dark:bg-slate-800 my-1"></div>
+                </div>
+                <div class="flex-1 pb-6">
+                    <div class="bg-white dark:bg-slate-900 p-4 rounded-2xl shadow-md border-l-4 border-l-indigo-500 border-slate-100 dark:border-slate-800">
+                        <div class="flex justify-between items-start mb-2">
+                            <span class="text-xs font-bold text-indigo-600">12:30 PM</span>
+                            <span class="px-2 py-0.5 rounded bg-amber-50 text-amber-600 text-[10px] font-bold animate-pulse">待服用</span>
+                        </div>
+                        <h4 class="font-bold">綜合維他命 B 群</h4>
+                        <p class="text-sm text-slate-500 italic">1 錠，搭配大量溫水</p>
+                        <div class="mt-4 flex gap-2">
+                            <button class="flex-1 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-sm font-bold transition transform active:scale-95">
+                                <i class="fa-solid fa-check mr-2"></i> 確認服用
+                            </button>
+                            <button class="px-4 py-2 border border-slate-200 dark:border-slate-700 rounded-xl text-sm font-medium transition transform active:scale-95">
+                                稍後
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Med Card 3 (Later) -->
+            <div class="flex gap-4 relative">
+                <div class="flex flex-col items-center">
+                    <div class="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-400">
+                        <i class="fa-solid fa-moon"></i>
+                    </div>
+                </div>
+                <div class="flex-1 pb-6">
+                    <div class="bg-white dark:bg-slate-900 p-4 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800">
+                        <div class="flex justify-between items-start mb-2">
+                            <span class="text-xs font-bold text-slate-400">09:00 PM</span>
+                        </div>
+                        <h4 class="font-bold text-slate-700 dark:text-slate-300">降血壓藥 (Amlodipine)</h4>
+                        <p class="text-sm text-slate-500 italic">1 錠，睡前一小時</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Inventory Quick Peek -->
+        <section class="bg-white dark:bg-slate-900 rounded-3xl p-5 shadow-sm border border-slate-100 dark:border-slate-800">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="font-bold">藥物庫存狀態</h3>
+                <button data-goto="p6" class="text-xs text-indigo-600 font-bold">完整清單</button>
+            </div>
+            <div class="space-y-3">
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-lg bg-red-100 dark:bg-red-900/20 flex items-center justify-center text-red-500 text-xs">
+                        <i class="fa-solid fa-exclamation-triangle"></i>
+                    </div>
+                    <div class="flex-1">
+                        <div class="flex justify-between text-xs mb-1">
+                            <span class="font-medium">阿斯匹靈</span>
+                            <span class="text-red-500 font-bold">剩餘 3 錠</span>
+                        </div>
+                        <div class="w-full bg-slate-100 dark:bg-slate-800 h-1.5 rounded-full overflow-hidden">
+                            <div class="bg-red-500 h-full w-[15%]"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Floating Action Button (FAB) -->
+    <button data-goto="p5" class="fixed right-6 bottom-24 w-14 h-14 bg-indigo-600 text-white rounded-full shadow-lg shadow-indigo-300 dark:shadow-none flex items-center justify-center text-2xl transition transform hover:scale-110 active:scale-90 z-40">
+        <i class="fa-solid fa-plus"></i>
+    </button>
+
+    <!-- Bottom Navigation Bar -->
+    <nav class="fixed bottom-0 left-0 right-0 bg-white/80 dark:bg-slate-900/80 backdrop-blur-lg border-t border-slate-200 dark:border-slate-800 px-6 py-3 z-50">
+        <div class="flex justify-between items-center max-w-md mx-auto">
+            <button data-goto="p4" class="flex flex-col items-center text-indigo-600">
+                <i class="fa-solid fa-house text-xl"></i>
+                <span class="text-[10px] mt-1 font-bold">首頁</span>
+            </button>
+            <button data-goto="p6" class="flex flex-col items-center text-slate-400 hover:text-indigo-500 transition-colors">
+                <i class="fa-solid fa-box-archive text-xl"></i>
+                <span class="text-[10px] mt-1">庫存</span>
+            </button>
+            <div class="w-12"></div> <!-- Spacer for FAB -->
+            <button data-goto="p8" class="flex flex-col items-center text-slate-400 hover:text-indigo-500 transition-colors">
+                <i class="fa-solid fa-calendar-check text-xl"></i>
+                <span class="text-[10px] mt-1">歷史</span>
+            </button>
+            <button data-goto="p9" class="flex flex-col items-center text-slate-400 hover:text-indigo-500 transition-colors">
+                <i class="fa-solid fa-user text-xl"></i>
+                <span class="text-[10px] mt-1">設定</span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Navigation Handler -->
+    <script>
+        document.querySelectorAll('[data-goto]').forEach(element => {
+            element.addEventListener('click', () => {
+                const targetId = element.getAttribute('data-goto');
+                console.log(`Navigating to page: ${targetId}`);
+                // In a real prototype, this would trigger the page switch logic
+                // For this single-file demo, we just alert or log
+                // alert('Navigating to ' + targetId);
+            });
+        });
+
+        // Simple animation for the "Taken" button
+        const confirmButtons = document.querySelectorAll('button:contains("確認服用")');
+        // (Native JS contains selector doesn't exist, this is conceptual)
+        document.addEventListener('click', (e) => {
+            if (e.target.innerText.includes('確認服用')) {
+                const btn = e.target.closest('button');
+                btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i> 處理中...';
+                setTimeout(() => {
+                    btn.classList.remove('bg-indigo-600');
+                    btn.classList.add('bg-emerald-500');
+                    btn.innerHTML = '<i class="fa-solid fa-check mr-2"></i> 已記錄';
+                    btn.disabled = true;
+                }, 800);
+            }
+        });
+    </script>
+
+<script>
+  // Pro Prototype - Static Navigation Shim
+  document.addEventListener('DOMContentLoaded', () => {
+    document.body.addEventListener('click', (e) => {
+      const target = e.target.closest('[data-goto]');
+      if (target) {
+        e.preventDefault();
+        const pageId = target.getAttribute('data-goto');
+        // Navigate to the corresponding HTML file
+        window.location.href = pageId + '.html';
+      }
+    });
+  });
+</script>
+</body>
+</html>
+```
