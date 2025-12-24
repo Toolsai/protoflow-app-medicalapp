@@ -1,0 +1,271 @@
+```html
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登入與註冊 - 智匯藥管家</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap');
+        body {
+            font-family: 'Noto+Sans+TC', sans-serif;
+            background-color: #f8fafc;
+        }
+        .auth-card {
+            transition: transform 0.3s ease;
+        }
+        .input-focus:focus-within {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+        .hidden-form {
+            display: none;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 min-h-screen flex flex-col items-center justify-center p-4">
+
+    <!-- Container -->
+    <div class="w-full max-w-md bg-white rounded-3xl shadow-xl overflow-hidden relative border border-slate-100">
+        
+        <!-- Back Button -->
+        <button data-goto="p1" class="absolute top-6 left-6 w-10 h-10 flex items-center justify-center rounded-full bg-slate-50 text-slate-600 hover:bg-slate-100 transition-colors">
+            <i class="fa-solid fa-chevron-left"></i>
+        </button>
+
+        <div class="p-8 pt-16">
+            <!-- Header Section -->
+            <div class="text-center mb-8">
+                <div class="w-20 h-20 bg-blue-600 rounded-2xl mx-auto mb-4 flex items-center justify-center shadow-lg shadow-blue-200">
+                    <i class="fa-solid fa- prescription-bottle-medical text-white text-3xl"></i>
+                </div>
+                <h1 class="text-2xl font-bold text-slate-800" id="auth-title">歡迎回來</h1>
+                <p class="text-slate-500 mt-2" id="auth-subtitle">登入以管理您的個人藥物健康</p>
+            </div>
+
+            <!-- Tab Switcher -->
+            <div class="flex p-1 bg-slate-100 rounded-xl mb-8">
+                <button onclick="switchTab('login')" id="tab-login" class="flex-1 py-2 text-sm font-medium rounded-lg bg-white shadow-sm text-blue-600 transition-all">
+                    登入
+                </button>
+                <button onclick="switchTab('register')" id="tab-register" class="flex-1 py-2 text-sm font-medium rounded-lg text-slate-500 hover:text-slate-700 transition-all">
+                    註冊
+                </button>
+            </div>
+
+            <!-- Login Form Section -->
+            <div id="login-form">
+                <div class="space-y-4">
+                    <!-- Identity Input -->
+                    <div class="space-y-1">
+                        <label class="text-sm font-medium text-slate-700 ml-1">帳號</label>
+                        <div class="input-focus flex items-center bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 transition-all">
+                            <i class="fa-regular fa-envelope text-slate-400 mr-3"></i>
+                            <input type="text" placeholder="電子郵件或手機號碼" class="bg-transparent w-full outline-none text-slate-800 placeholder:text-slate-400">
+                        </div>
+                    </div>
+
+                    <!-- Password Input -->
+                    <div class="space-y-1">
+                        <div class="flex justify-between items-center px-1">
+                            <label class="text-sm font-medium text-slate-700">密碼</label>
+                            <button onclick="toggleForgot(true)" class="text-xs font-medium text-blue-600 hover:text-blue-700">忘記密碼？</button>
+                        </div>
+                        <div class="input-focus flex items-center bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 transition-all">
+                            <i class="fa-solid fa-lock text-slate-400 mr-3"></i>
+                            <input type="password" placeholder="請輸入密碼" class="bg-transparent w-full outline-none text-slate-800 placeholder:text-slate-400">
+                            <button class="text-slate-400 hover:text-slate-600"><i class="fa-regular fa-eye-slash"></i></button>
+                        </div>
+                    </div>
+
+                    <!-- Options -->
+                    <div class="flex items-center space-x-2 px-1">
+                        <input type="checkbox" id="remember" class="w-4 h-4 rounded text-blue-600 border-slate-300 focus:ring-blue-500">
+                        <label for="remember" class="text-sm text-slate-500">保持登入狀態</label>
+                    </div>
+
+                    <!-- Login Button -->
+                    <button data-goto="p4" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-xl shadow-lg shadow-blue-100 transition-all transform active:scale-[0.98] mt-4">
+                        立即登入
+                    </button>
+                </div>
+            </div>
+
+            <!-- Register Form Section (Hidden by default) -->
+            <div id="register-form" class="hidden-form">
+                <div class="space-y-4">
+                    <div class="space-y-1">
+                        <label class="text-sm font-medium text-slate-700 ml-1">姓名</label>
+                        <div class="input-focus flex items-center bg-slate-50 border border-slate-200 rounded-xl px-4 py-3">
+                            <i class="fa-regular fa-user text-slate-400 mr-3"></i>
+                            <input type="text" placeholder="如何稱呼您？" class="bg-transparent w-full outline-none text-slate-800">
+                        </div>
+                    </div>
+                    <div class="space-y-1">
+                        <label class="text-sm font-medium text-slate-700 ml-1">電子郵件</label>
+                        <div class="input-focus flex items-center bg-slate-50 border border-slate-200 rounded-xl px-4 py-3">
+                            <i class="fa-regular fa-envelope text-slate-400 mr-3"></i>
+                            <input type="email" placeholder="example@mail.com" class="bg-transparent w-full outline-none text-slate-800">
+                        </div>
+                    </div>
+                    <div class="space-y-1">
+                        <label class="text-sm font-medium text-slate-700 ml-1">密碼</label>
+                        <div class="input-focus flex items-center bg-slate-50 border border-slate-200 rounded-xl px-4 py-3">
+                            <i class="fa-solid fa-lock text-slate-400 mr-3"></i>
+                            <input type="password" placeholder="設定 8 位以上密碼" class="bg-transparent w-full outline-none text-slate-800">
+                        </div>
+                    </div>
+                    <button data-goto="p3" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-xl shadow-lg shadow-blue-100 transition-all transform active:scale-[0.98] mt-4">
+                        建立帳號
+                    </button>
+                </div>
+            </div>
+
+            <!-- Forgot Password Section (Hidden by default) -->
+            <div id="forgot-form" class="hidden-form">
+                <div class="bg-blue-50 p-4 rounded-xl mb-6">
+                    <p class="text-sm text-blue-700 leading-relaxed">
+                        <i class="fa-solid fa-circle-info mr-2"></i>
+                        請輸入您註冊時的電子郵件，我們將發送重設密碼連結給您。
+                    </p>
+                </div>
+                <div class="space-y-4">
+                    <div class="input-focus flex items-center bg-slate-50 border border-slate-200 rounded-xl px-4 py-3">
+                        <i class="fa-regular fa-envelope text-slate-400 mr-3"></i>
+                        <input type="email" placeholder="輸入電子郵件" class="bg-transparent w-full outline-none text-slate-800">
+                    </div>
+                    <button onclick="toggleForgot(false)" class="w-full bg-blue-600 text-white font-bold py-4 rounded-xl transition-all">
+                        發送驗證碼
+                    </button>
+                    <button onclick="toggleForgot(false)" class="w-full text-slate-500 font-medium py-2">
+                        返回登入
+                    </button>
+                </div>
+            </div>
+
+            <!-- Third Party Login -->
+            <div id="social-auth" class="mt-8">
+                <div class="relative flex items-center mb-6">
+                    <div class="flex-grow border-t border-slate-200"></div>
+                    <span class="flex-shrink mx-4 text-slate-400 text-sm">其他登入方式</span>
+                    <div class="flex-grow border-t border-slate-200"></div>
+                </div>
+
+                <div class="grid grid-cols-3 gap-4">
+                    <button class="flex items-center justify-center h-12 border border-slate-200 rounded-xl hover:bg-slate-50 transition-colors">
+                        <img src="https://www.svgrepo.com/show/475656/google-color.svg" class="w-5 h-5" alt="Google">
+                    </button>
+                    <button class="flex items-center justify-center h-12 border border-slate-200 rounded-xl hover:bg-slate-50 transition-colors">
+                        <i class="fa-brands fa-apple text-xl text-slate-800"></i>
+                    </button>
+                    <button class="flex items-center justify-center h-12 border border-slate-200 rounded-xl hover:bg-slate-50 transition-colors">
+                        <i class="fa-brands fa-line text-xl text-[#06C755]"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <p class="text-center text-xs text-slate-400 mt-10">
+                點擊「立即登入/註冊」即代表您同意<br>
+                <a href="#" class="underline">服務條款</a> 與 <a href="#" class="underline">隱私權政策</a>
+            </p>
+        </div>
+    </div>
+
+    <!-- Background Decoration Elements -->
+    <div class="fixed top-[-10%] right-[-10%] w-[400px] h-[400px] bg-blue-100 rounded-full blur-[100px] opacity-50 -z-10"></div>
+    <div class="fixed bottom-[-10%] left-[-10%] w-[300px] h-[300px] bg-teal-50 rounded-full blur-[80px] opacity-40 -z-10"></div>
+
+    <script>
+        function switchTab(tab) {
+            const loginForm = document.getElementById('login-form');
+            const registerForm = document.getElementById('register-form');
+            const forgotForm = document.getElementById('forgot-form');
+            const socialAuth = document.getElementById('social-auth');
+            
+            const tabLogin = document.getElementById('tab-login');
+            const tabRegister = document.getElementById('tab-register');
+            
+            const title = document.getElementById('auth-title');
+            const subtitle = document.getElementById('auth-subtitle');
+
+            // Reset forgot password state
+            forgotForm.classList.add('hidden-form');
+            socialAuth.classList.remove('hidden-form');
+
+            if (tab === 'login') {
+                loginForm.classList.remove('hidden-form');
+                registerForm.classList.add('hidden-form');
+                
+                tabLogin.classList.add('bg-white', 'shadow-sm', 'text-blue-600');
+                tabLogin.classList.remove('text-slate-500');
+                tabRegister.classList.remove('bg-white', 'shadow-sm', 'text-blue-600');
+                tabRegister.classList.add('text-slate-500');
+                
+                title.innerText = "歡迎回來";
+                subtitle.innerText = "登入以管理您的個人藥物健康";
+            } else {
+                loginForm.classList.add('hidden-form');
+                registerForm.classList.remove('hidden-form');
+                
+                tabRegister.classList.add('bg-white', 'shadow-sm', 'text-blue-600');
+                tabRegister.classList.remove('text-slate-500');
+                tabLogin.classList.remove('bg-white', 'shadow-sm', 'text-blue-600');
+                tabLogin.classList.add('text-slate-500');
+                
+                title.innerText = "建立新帳號";
+                subtitle.innerText = "加入智匯藥管家，開始您的健康生活";
+            }
+        }
+
+        function toggleForgot(show) {
+            const loginForm = document.getElementById('login-form');
+            const registerForm = document.getElementById('register-form');
+            const forgotForm = document.getElementById('forgot-form');
+            const socialAuth = document.getElementById('social-auth');
+            const title = document.getElementById('auth-title');
+            const subtitle = document.getElementById('auth-subtitle');
+
+            if (show) {
+                loginForm.classList.add('hidden-form');
+                registerForm.classList.add('hidden-form');
+                forgotForm.classList.remove('hidden-form');
+                socialAuth.classList.add('hidden-form');
+                title.innerText = "重設密碼";
+                subtitle.innerText = "別擔心，我們會幫您找回帳號";
+            } else {
+                switchTab('login');
+            }
+        }
+
+        // Handle navigation clicks
+        document.addEventListener('click', (e) => {
+            const target = e.target.closest('[data-goto]');
+            if (target) {
+                const pageId = target.getAttribute('data-goto');
+                console.log(`Navigating to: ${pageId}`);
+                // In a real app, this would handle page transitions
+                // For this demo, we'll just alert or could physically move them if it were a multi-page setup.
+            }
+        });
+    </script>
+
+<script>
+  // Pro Prototype - Static Navigation Shim
+  document.addEventListener('DOMContentLoaded', () => {
+    document.body.addEventListener('click', (e) => {
+      const target = e.target.closest('[data-goto]');
+      if (target) {
+        e.preventDefault();
+        const pageId = target.getAttribute('data-goto');
+        // Navigate to the corresponding HTML file
+        window.location.href = pageId + '.html';
+      }
+    });
+  });
+</script>
+</body>
+</html>
+
+```
